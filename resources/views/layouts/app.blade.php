@@ -172,10 +172,12 @@
                 </a>
 
                 {{-- Μελλοντικά: Εταιρίες, Συμβόλαια, Ραντεβού κτλ. --}}
-                <a href="#" class="nav-link disabled">
-                    <i class="bi bi-building"></i>
-                    <span>Εταιρίες (soon)</span>
+                <a href="{{ route('companies.index') }}"
+                 class="nav-link {{ request()->routeIs('companies.*') ? 'active' : '' }}">
+                <i class="bi bi-building"></i>
+                <span>Εταιρίες</span>
                 </a>
+
                 <a href="#" class="nav-link disabled">
                     <i class="bi bi-file-earmark-text"></i>
                     <span>Συμβόλαια (soon)</span>

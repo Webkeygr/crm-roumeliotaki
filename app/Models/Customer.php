@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Customer extends Model
 {
@@ -25,32 +28,31 @@ class Customer extends Model
         'birth_date' => 'date',
     ];
 
-    public function company()
+    // Για να χρησιμοποιούμε $customer->full_name
+    protected $appends = ['full_name'];
+
+    public function getFullNameAttribute(): string
+    {
+        return trim("{$this->first_name} {$this->last_name}");
+    }
+
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function contractsAsPolicyHolder()
+    // θα τα χρησιμοποιήσουμε αργότερα
+    public function contractsAsPolicyHolder(): HasMany
     {
         return $this->hasMany(Contract::class, 'policy_holder_id');
     }
 
-    public function contractsAsInsured()
+    public function contractsAsInsured(): BelongsToMany
     {
-        return $this->belongsToMany(
-            Contract::class,
-            'contract_insured_customers',
-            'customer_id',
-            'contract_id'
-        );
+        return $this->belongsToMany(Contract::class, 'contract_insured_customers');
     }
 
-    public function familyRelations()
-    {
-        return $this->hasMany(CustomerRelation::class, 'customer_id');
-    }
-
-    public function familyMembers()
+    public function familyMembers(): BelongsToMany
     {
         return $this->belongsToMany(
             Customer::class,
@@ -58,15 +60,5 @@ class Customer extends Model
             'customer_id',
             'related_customer_id'
         );
-    }
-
-    public function appointments()
-    {
-        return $this->hasMany(Appointment::class);
-    }
-
-    public function getFullNameAttribute(): string
-    {
-        return "{$this->first_name} {$this->last_name}";
     }
 }
