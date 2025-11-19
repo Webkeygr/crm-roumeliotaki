@@ -25,4 +25,10 @@ class Company extends Model
     {
         return $this->hasMany(Customer::class);
     }
+
+    public function policies()
+{
+    return $this->hasMany(Policy::class);
+}
+
 }

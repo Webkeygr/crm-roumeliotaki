@@ -107,11 +107,11 @@
     }
 
     .btn-key {
-        background: linear-gradient(135deg, #6e8f95, #4f6f75);
+        background: linear-gradient(135deg, #ffffffff, #89abb1ff);
         border: none;
         border-radius: 999px;
         padding-inline: 1.2rem;
-        color: #fdfdfd;
+        color: #ffffffff;
         font-weight: 600;
         box-shadow: 0 10px 25px rgba(79, 111, 117, 0.35);
         transition: background 0.18s ease, box-shadow 0.18s ease, color 0.18s ease;
@@ -228,10 +228,12 @@ main .table td {
                 <span>Εταιρίες</span>
                 </a>
 
-                <a href="#" class="nav-link disabled">
-                    <i class="bi bi-file-earmark-text"></i>
-                    <span>Συμβόλαια (soon)</span>
-                </a>
+                <a href="{{ route('policies.index') }}"
+   class="nav-link {{ request()->routeIs('policies.*') ? 'active' : '' }}">
+    <i class="bi bi-file-earmark-text"></i>
+    <span>Συμβόλαια</span>
+</a>
+
                 <a href="{{ route('appointments.index') }}"
    class="nav-link {{ request()->routeIs('appointments.*') ? 'active' : '' }}">
     <i class="bi bi-calendar-event"></i>

@@ -30,6 +30,19 @@ class Customer extends Model
 
     protected $appends = ['full_name'];
 
+    // Συμβόλαια όπου είναι συμβαλλόμενος
+public function policiesAsHolder()
+{
+    return $this->hasMany(Policy::class, 'policyholder_id');
+}
+
+// Συμβόλαια όπου είναι ασφαλιζόμενος
+public function policiesAsInsured()
+{
+    return $this->belongsToMany(Policy::class, 'policy_customer');
+}
+
+
     public function getFullNameAttribute(): string
     {
         return trim("{$this->first_name} {$this->last_name}");
