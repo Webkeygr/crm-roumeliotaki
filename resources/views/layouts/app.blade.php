@@ -12,136 +12,145 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
-        body {
-            background-color: #0b1020;
-            color: #e9edf5;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        }
+    body {
+        background-color: #f7f1e9; /* ζεστό off-white, ίδιο feeling με το site */
+        color: #344048;            /* σκούρο γκρι-μπλε για κείμενα */
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
+    .sidebar {
+        min-height: 100vh;
+        background: linear-gradient(180deg, #6e8f95 0%, #4f6f75 60%, #39535a 100%);
+        border-right: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .sidebar .nav-link {
+        color: #dde6ea;
+        font-weight: 500;
+        border-radius: 0.65rem;
+        padding: 0.55rem 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        transition: background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .sidebar .nav-link:hover {
+        background: rgba(255, 255, 255, 0.09);
+        color: #ffffff;
+    }
+
+    .sidebar .nav-link.active {
+        background: linear-gradient(90deg, #f3d8b5 0%, #e3b278 100%);
+        color: #3c4a4f;
+        box-shadow: 0 0 18px rgba(227, 178, 120, 0.55);
+    }
+
+    .sidebar .nav-link.active i {
+        color: #334047;
+    }
+
+    .brand-key {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: radial-gradient(circle at 20% 0, #f3d8b5 0, #e49a6b 45%, #2f4248 80%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #28333a;
+        font-weight: 800;
+        font-size: 18px;
+        box-shadow: 0 0 20px rgba(227, 178, 120, 0.65);
+    }
+
+    .main-wrapper {
+        min-height: 100vh;
+    }
+
+    .topbar {
+        backdrop-filter: blur(16px);
+        background: linear-gradient(90deg, rgba(247, 241, 233, 0.96), rgba(245, 237, 227, 0.96));
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .page-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+
+    .badge-soft {
+        border-radius: 999px;
+        padding: 0.25rem 0.75rem;
+        font-size: 0.75rem;
+        background-color: rgba(227, 178, 120, 0.18);
+        color: #c5864a;
+    }
+
+    .card-glass {
+        background: radial-gradient(circle at top left, #ffffff 0, #f3e8dc 55%);
+        border-radius: 1.25rem;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.06);
+    }
+
+    .table-dark-custom {
+        --bs-table-bg: transparent;
+        --bs-table-striped-bg: rgba(248, 241, 232, 0.9);
+        --bs-table-striped-color: #344048;
+        --bs-table-hover-bg: rgba(227, 178, 120, 0.12);
+        --bs-table-hover-color: #222b30;
+    }
+
+    .btn-key {
+        background: linear-gradient(135deg, #6e8f95, #4f6f75);
+        border: none;
+        border-radius: 999px;
+        padding-inline: 1.2rem;
+        color: #fdfdfd;
+        font-weight: 600;
+        box-shadow: 0 10px 25px rgba(79, 111, 117, 0.35);
+        transition: background 0.18s ease, box-shadow 0.18s ease, color 0.18s ease;
+    }
+
+    .btn-key:hover {
+        background: linear-gradient(135deg, #e49a6b, #f3d8b5);
+        color: #2d363a;
+        box-shadow: 0 10px 24px rgba(228, 154, 107, 0.45);
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 0.7rem;
+        background-color: #ffffff;
+        border: 1px solid #d7c8b8;
+        color: #344048;
+    }
+
+    .form-control::placeholder,
+    .form-select::placeholder {
+        color: #a4aeb4;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #e49a6b;
+        box-shadow: 0 0 0 0.18rem rgba(228, 154, 107, 0.25);
+        background-color: #ffffff;
+        color: #344048;
+    }
+
+    .text-muted-soft {
+        color: #8c9aa0 !important;
+    }
+
+    @media (max-width: 991.98px) {
         .sidebar {
-            min-height: 100vh;
-            background: radial-gradient(circle at top left, #1b2440 0, #050814 60%);
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            min-height: auto;
         }
+    }
+</style>
 
-        .sidebar .nav-link {
-            color: #9ea9d5;
-            font-weight: 500;
-            border-radius: 0.65rem;
-            padding: 0.55rem 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.55rem;
-        }
-
-        .sidebar .nav-link:hover {
-            background: rgba(252, 236, 69, 0.12);
-            color: #fcec45;
-        }
-
-        .sidebar .nav-link.active {
-            background: linear-gradient(90deg, #fcec45, #f9d349);
-            color: #111321;
-            box-shadow: 0 0 18px rgba(252, 236, 69, 0.4);
-        }
-
-        .sidebar .nav-link.active i {
-            color: #111321;
-        }
-
-        .brand-key {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
-            background: radial-gradient(circle at 20% 0, #fcec45 0, #f9af3c 45%, #111321 80%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #111321;
-            font-weight: 800;
-            font-size: 18px;
-            box-shadow: 0 0 25px rgba(252, 236, 69, 0.55);
-        }
-
-        .main-wrapper {
-            min-height: 100vh;
-        }
-
-        .topbar {
-            backdrop-filter: blur(16px);
-            background: linear-gradient(90deg, rgba(11, 16, 32, 0.92), rgba(11, 16, 32, 0.8));
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .page-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .badge-soft {
-            border-radius: 999px;
-            padding: 0.25rem 0.75rem;
-            font-size: 0.75rem;
-            background-color: rgba(252, 236, 69, 0.16);
-            color: #fcec45;
-        }
-
-        .card-glass {
-            background: radial-gradient(circle at top left, #151b33 0, #050815 60%);
-            border-radius: 1.25rem;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 18px 60px rgba(0, 0, 0, 0.65);
-        }
-
-        .table-dark-custom {
-            --bs-table-bg: transparent;
-            --bs-table-striped-bg: rgba(255, 255, 255, 0.02);
-            --bs-table-striped-color: #e9edf5;
-            --bs-table-hover-bg: rgba(252, 236, 69, 0.04);
-            --bs-table-hover-color: #ffffff;
-        }
-
-        .btn-key {
-            background: linear-gradient(135deg, #fcec45, #f9d349);
-            border: none;
-            border-radius: 999px;
-            padding-inline: 1.2rem;
-            color: #111321;
-            font-weight: 600;
-            box-shadow: 0 12px 30px rgba(252, 236, 69, 0.45);
-        }
-
-        .btn-key:hover {
-            background: linear-gradient(135deg, #ffe45f, #f6c935);
-            color: #111321;
-        }
-
-        .form-control,
-        .form-select {
-            border-radius: 0.7rem;
-            background-color: rgba(4, 10, 26, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #e9edf5;
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-            border-color: #fcec45;
-            box-shadow: 0 0 0 0.2rem rgba(252, 236, 69, 0.25);
-            background-color: #050815;
-            color: #ffffff;
-        }
-
-        .text-muted-soft {
-            color: #858fb5 !important;
-        }
-
-        @media (max-width: 991.98px) {
-            .sidebar {
-                min-height: auto;
-            }
-        }
-    </style>
 
     @stack('styles')
 </head>
@@ -153,7 +162,7 @@
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <div class="d-flex align-items-center gap-3">
                     <div class="brand-key">
-                        <span>K</span>
+                        <span>RI</span>
                     </div>
                     <div>
                         <div class="fw-semibold text-white">Roumeliotaki CRM</div>
@@ -182,10 +191,12 @@
                     <i class="bi bi-file-earmark-text"></i>
                     <span>Συμβόλαια (soon)</span>
                 </a>
-                <a href="#" class="nav-link disabled">
-                    <i class="bi bi-calendar-event"></i>
-                    <span>Ραντεβού (soon)</span>
-                </a>
+                <a href="{{ route('appointments.index') }}"
+   class="nav-link {{ request()->routeIs('appointments.*') ? 'active' : '' }}">
+    <i class="bi bi-calendar-event"></i>
+    <span>Ραντεβού</span>
+</a>
+
             </div>
 
             <div class="mt-auto pt-4 small text-muted-soft d-none d-md-block">

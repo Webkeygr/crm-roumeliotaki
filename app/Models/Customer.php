@@ -28,7 +28,6 @@ class Customer extends Model
         'birth_date' => 'date',
     ];
 
-    // Για να χρησιμοποιούμε $customer->full_name
     protected $appends = ['full_name'];
 
     public function getFullNameAttribute(): string
@@ -39,6 +38,11 @@ class Customer extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function appointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class);
     }
 
     // θα τα χρησιμοποιήσουμε αργότερα

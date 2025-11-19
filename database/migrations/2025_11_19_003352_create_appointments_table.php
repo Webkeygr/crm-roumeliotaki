@@ -11,20 +11,34 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('customer_id')->nullable(); // Πελάτης
-            $table->unsignedBigInteger('company_id')->nullable();  // Εταιρία (αν αφορά εταιρία)
+            // Πελάτης
+            $table->foreignId('customer_id')
+                ->constrained()
+                ->cascadeOnDelete();
 
-            $table->string('reason_type');              // group_insurance, health, life, car, home
-            $table->text('reason_details')->nullable(); // περιγραφή ραντεβού
+            // Λόγος ραντεβού (dropdown)
+            $table->string('reason'); // π.χ. "Ομαδικό ασφαλιστικό"
 
-            $table->date('appointment_date');
-            $table->time('appointment_time')->nullable();
-            $table->string('location')->nullable();     // Μέρος
+            // Ελεύθερο κείμενο για λεπτομέρειες
+            $table->text('reason_detail')->nullable();
 
-            $table->string('status');                   // cancelled, awaiting_response, application, contract_signing
-            $table->string('discussed_company')->nullable(); // Interamerican, Groupama κλπ.
+            // Ημερομηνία & ώρα
+            $table->date('date');
+            $table->time('time');
+
+            // Μέρος
+            $table->string('location')->nullable();
+
+            // Κατάσταση (dropdown)
+            $table->string('status')->default('Σε αναμονή απάντησης');
+
+            // Για ποια ασφαλιστική μιλήσαμε (Interamerican, Groupama)
+            $table->string('insurance_company')->nullable();
 
             $table->timestamps();
+
+            $table->index(['date', 'time']);
+            $table->index('status');
         });
     }
 
