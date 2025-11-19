@@ -6,41 +6,44 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('policies', function (Blueprint $table) {
             $table->id();
 
+            // Συσχέτιση με πελάτη και εταιρία (προαιρετικά / nullable)
+            $table->foreignId('customer_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('company_id')->nullable()->constrained()->nullOnDelete();
+
             // Βασικά στοιχεία συμβολαίου
-            $table->string('contract_type');          // Ατομικό, Οικογενειακό, Ομαδικό
-            $table->string('insurance_company');      // Interamerican, Groupama
-            $table->string('policy_number')->unique();
+            $table->string('policy_number')->unique();          // Αρ. συμβολαίου
+            $table->string('policy_type')->nullable();          // Τύπος (Αυτοκίνητο, Υγείας κλπ)
+            $table->string('insurance_company')->nullable();    // Ασφαλιστική εταιρία
 
-            // Υπογραφή
-            $table->boolean('is_signed')->default(false);
-            $table->date('signed_at')->nullable();
+            // Ημερομηνίες
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
 
-            // Πληρωμές
-            $table->string('payment_frequency');      // Μηνιαίο, Τρίμηνο, Εξάμηνο, Ετήσιο
-            $table->decimal('net_value', 10, 2)->nullable();
+            // Οικονομικά
+            $table->decimal('annual_premium', 10, 2)->nullable(); // Ετήσιο ασφάλιστρο
+            $table->string('payment_frequency')->nullable();      // π.χ. Ετήσια, Εξαμηνιαία κλπ
 
-            // Είδος συμβολαίου (ασφάλεια υγείας, ζωής κλπ)
-            $table->string('policy_kind');
+            // Κατάσταση συμβολαίου
+            $table->string('status')->default('active');          // active, expired, cancelled κλπ
 
-            // Σχέσεις
-            $table->foreignId('policyholder_id')      // Συμβαλλόμενος (ένας πελάτης)
-                  ->constrained('customers')
-                  ->cascadeOnDelete();
-
-            $table->foreignId('company_id')           // Εταιρία (για ομαδικά κλπ) – προαιρετικό
-                  ->nullable()
-                  ->constrained('companies')
-                  ->nullOnDelete();
+            // Σημειώσεις
+            $table->text('notes')->nullable();
 
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('policies');
