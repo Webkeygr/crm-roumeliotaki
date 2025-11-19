@@ -322,9 +322,11 @@ main .table td {
                class="nav-link text-white {{ request()->routeIs('companies.*') ? 'fw-bold' : '' }}">
                 <i class="bi bi-building me-2"></i> Εταιρίες
             </a>
-            <a href="#" class="nav-link text-secondary">
-                <i class="bi bi-file-earmark-text me-2"></i> Συμβόλαια (soon)
-            </a>
+             <a href="{{ route('policies.index') }}"
+   class="nav-link text-white {{ request()->routeIs('policies.*') ? 'fw-bold' : '' }}">
+    <i class="bi bi-file-earmark-text me-2"></i> Συμβόλαια
+</a>
+
             <a href="{{ route('appointments.index') }}"
                class="nav-link text-white {{ request()->routeIs('appointments.*') ? 'fw-bold' : '' }}">
                 <i class="bi bi-calendar-event me-2"></i> Ραντεβού
