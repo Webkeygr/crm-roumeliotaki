@@ -11,7 +11,7 @@
                 Ραντεβού με {{ $appointment->customer?->full_name }}
             </h1>
             <p class="mb-0 text-muted-soft">
-                {{ $appointment->date->format('d/m/Y') }} · {{ $appointment->time->format('H:i') }}
+                @date($appointment->date) · {{ $appointment->time->format('H:i') }}
                 @if($appointment->location)
                     · {{ $appointment->location }}
                 @endif

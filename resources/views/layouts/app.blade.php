@@ -72,6 +72,10 @@
         backdrop-filter: blur(16px);
         background: linear-gradient(90deg, rgba(247, 241, 233, 0.96), rgba(245, 237, 227, 0.96));
         border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+         position: sticky;
+    top: 0;
+    z-index: 1030;
     }
 
     .page-title {
@@ -132,6 +136,18 @@
         color: #a4aeb4;
     }
 
+    /* Σκούρο κείμενο στο main content */
+main {
+    color: #111111;
+}
+
+main .table,
+main .table th,
+main .table td {
+    color: #111111;
+}
+
+
     .form-control:focus,
     .form-select:focus {
         border-color: #e49a6b;
@@ -158,18 +174,20 @@
 <div class="container-fluid">
     <div class="row main-wrapper">
         {{-- Sidebar --}}
-        <nav class="col-12 col-md-3 col-lg-2 sidebar py-3 px-3 px-lg-3">
-            <div class="d-flex align-items-center justify-content-between mb-4">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="brand-key">
-                        <span>RI</span>
-                    </div>
-                    <div>
-                        <div class="fw-semibold text-white">Roumeliotaki CRM</div>
-                        <div class="small text-muted-soft">Το κλειδί στις σχέσεις πελατών</div>
-                    </div>
-                </div>
-            </div>
+        <nav class="col-12 col-md-3 col-lg-2 sidebar py-3 px-3 px-lg-3 d-none d-md-block">
+<div class="d-flex align-items-center justify-content-between mb-4">
+    {{-- Όλο το brand είναι link στην "αρχική" --}}
+    <a href="{{ route('customers.index') }}"
+       class="d-flex align-items-center gap-3 text-decoration-none">
+        <div class="brand-key">
+            <span>RI</span>
+        </div>
+        <div>
+            <div class="fw-semibold text-white">Roumeliotaki CRM</div>
+            <div class="small text-muted-soft">Το κλειδί στις σχέσεις πελατών</div>
+        </div>
+    </a>
+</div>
 
             <hr class="border-secondary border-opacity-25">
 
@@ -217,6 +235,14 @@
                 </div>
 
                 <div class="d-flex align-items-center gap-3">
+                    {{-- HAMBURGER μόνο σε mobile --}}
+    <button class="btn btn-outline-light d-inline-flex d-md-none"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#mobileMenu"
+            aria-controls="mobileMenu">
+        <i class="bi bi-list"></i>
+    </button>
                     <span class="small text-muted-soft d-none d-sm-inline">Συνδεδεμένος χρήστης</span>
                     <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center"
                          style="width:34px;height:34px;">
@@ -240,6 +266,34 @@
         </main>
     </div>
 </div>
+{{-- Offcanvas menu για mobile --}}
+<div class="offcanvas offcanvas-end bg-dark text-white" tabindex="-1" id="mobileMenu">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Μενού</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <nav class="nav flex-column gap-2">
+            <a href="{{ route('customers.index') }}"
+               class="nav-link text-white {{ request()->routeIs('customers.*') ? 'fw-bold' : '' }}">
+                <i class="bi bi-people-fill me-2"></i> Πελάτες
+            </a>
+            <a href="{{ route('companies.index') }}"
+               class="nav-link text-white {{ request()->routeIs('companies.*') ? 'fw-bold' : '' }}">
+                <i class="bi bi-building me-2"></i> Εταιρίες
+            </a>
+            <a href="#" class="nav-link text-secondary">
+                <i class="bi bi-file-earmark-text me-2"></i> Συμβόλαια (soon)
+            </a>
+            <a href="{{ route('appointments.index') }}"
+               class="nav-link text-white {{ request()->routeIs('appointments.*') ? 'fw-bold' : '' }}">
+                <i class="bi bi-calendar-event me-2"></i> Ραντεβού
+            </a>
+        </nav>
+    </div>
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @stack('scripts')
