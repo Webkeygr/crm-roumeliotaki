@@ -59,11 +59,34 @@ class CustomerController extends Controller
      * Προβολή συγκεκριμένου πελάτη
      */
     public function show(Customer $customer)
-    {
-        $customer->load('company', 'contractsAsPolicyHolder', 'contractsAsInsured', 'familyMembers');
+{
+    $customer->load('company');
 
-        return view('customers.show', compact('customer'));
-    }
+    $today = now()->toDateString();
+
+    // Επερχόμενα ραντεβού (σήμερα και μετά)
+    $upcomingAppointments = $customer->appointments()
+        ->whereDate('date', '>=', $today)
+        ->orderBy('date')
+        ->orderBy('time')
+        ->take(5)
+        ->get();
+
+    // Πρόσφατα προηγούμενα ραντεβού
+    $pastAppointments = $customer->appointments()
+        ->whereDate('date', '<', $today)
+        ->orderByDesc('date')
+        ->orderByDesc('time')
+        ->take(5)
+        ->get();
+
+    return view('customers.show', compact(
+        'customer',
+        'upcomingAppointments',
+        'pastAppointments'
+    ));
+}
+
 
     /**
      * Φόρμα επεξεργασίας πελάτη

@@ -2,22 +2,26 @@
 
 <div class="row g-3">
     <div class="col-md-6">
-        <label class="form-label">Πελάτης</label>
-        <select name="customer_id"
-                class="form-select @error('customer_id') is-invalid @enderror"
-                required>
-            <option value="">— Επιλογή πελάτη —</option>
-            @foreach($customers as $customer)
-                <option value="{{ $customer->id }}"
-                    {{ old('customer_id', $appointment->customer_id ?? null) == $customer->id ? 'selected' : '' }}>
-                    {{ $customer->full_name }}
-                </option>
-            @endforeach
-        </select>
-        @error('customer_id')
-        <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-    </div>
+    <label class="form-label">Πελάτης</label>
+    <select name="customer_id"
+            class="form-select @error('customer_id') is-invalid @enderror"
+            required>
+        <option value="">— Επιλογή πελάτη —</option>
+        @foreach($customers as $customer)
+            <option value="{{ $customer->id }}"
+                {{ old(
+                        'customer_id',
+                        $appointment->customer_id ?? ($selectedCustomerId ?? null)
+                   ) == $customer->id ? 'selected' : '' }}>
+                {{ $customer->full_name }}
+            </option>
+        @endforeach
+    </select>
+    @error('customer_id')
+    <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
 
     <div class="col-md-6">
         <label class="form-label">Λόγος ραντεβού</label>

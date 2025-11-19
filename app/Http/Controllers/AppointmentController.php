@@ -18,23 +18,28 @@ class AppointmentController extends Controller
         return view('appointments.index', compact('appointments'));
     }
 
-    public function create()
-    {
-        $customers = Customer::orderBy('last_name')
-            ->orderBy('first_name')
-            ->get();
+    public function create(Request $request)
+{
+    $customers = Customer::orderBy('last_name')
+        ->orderBy('first_name')
+        ->get();
 
-        $reasons = Appointment::reasons();
-        $statuses = Appointment::statuses();
-        $companies = Appointment::insuranceCompanies();
+    $reasons   = Appointment::reasons();
+    $statuses  = Appointment::statuses();
+    $companies = Appointment::insuranceCompanies();
 
-        return view('appointments.create', compact(
-            'customers',
-            'reasons',
-            'statuses',
-            'companies'
-        ));
-    }
+    // Αν έρθει ?customer_id= από link πελάτη
+    $selectedCustomerId = $request->query('customer_id');
+
+    return view('appointments.create', compact(
+        'customers',
+        'reasons',
+        'statuses',
+        'companies',
+        'selectedCustomerId'
+    ));
+}
+
 
     public function store(Request $request)
     {

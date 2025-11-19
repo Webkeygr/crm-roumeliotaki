@@ -11,7 +11,11 @@
     </p>
 
     <form method="POST" action="{{ route('appointments.store') }}">
-        @include('appointments._form', ['appointment' => new \App\Models\Appointment()])
-    </form>
+    @include('appointments._form', [
+        'appointment' => new \App\Models\Appointment(),
+        'selectedCustomerId' => $selectedCustomerId ?? null,
+    ])
+</form>
+
 </div>
 @endsection
