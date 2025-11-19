@@ -141,6 +141,29 @@ main {
     color: #111111;
 }
 
+/* Ό,τι είναι μέσα στις κάρτες (λίστα πελατών κλπ) να είναι μαύρο */
+.card-glass,
+.card-glass h1,
+.card-glass h2,
+.card-glass h3,
+.card-glass h4,
+.card-glass h5,
+.card-glass h6,
+.card-glass p,
+.card-glass span,
+.card-glass td,
+.card-glass th {
+    color: #111111 !important;
+}
+
+/* Links μέσα στις κάρτες – λίγο πιο σκούρο μπλε/πράσινο */
+.card-glass a {
+    color: #214853 !important;
+}
+.card-glass a:hover {
+    color: #16323a !important;
+}
+
 main .table,
 main .table th,
 main .table td {
@@ -228,11 +251,25 @@ main .table td {
             {{-- Topbar --}}
             <header class="topbar py-3 px-3 px-md-4 d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-2">
-                    <div class="page-title">@yield('page-title', 'Πίνακας Ελέγχου')</div>
-                    <span class="badge-soft d-none d-sm-inline-flex">
-                        v1 · Internal CRM
-                    </span>
-                </div>
+    {{-- Brand + τίτλος, όλο link προς την "αρχική" --}}
+    <a href="{{ route('customers.index') }}"
+       class="d-flex align-items-center gap-2 text-decoration-none">
+
+        {{-- Το RI να φαίνεται ΜΟΝΟ σε mobile, γιατί στο desktop το έχεις στο sidebar --}}
+        <div class="brand-key d-inline-flex d-md-none">
+            <span>RI</span>
+        </div>
+
+        <span class="page-title text-white">
+            @yield('page-title', 'Πίνακας Ελέγχου')
+        </span>
+    </a>
+
+    <span class="badge-soft d-none d-sm-inline-flex">
+        v1 · Internal CRM
+    </span>
+</div>
+
 
                 <div class="d-flex align-items-center gap-3">
                     {{-- HAMBURGER μόνο σε mobile --}}
